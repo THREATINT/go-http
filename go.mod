@@ -1,3 +1,3 @@
-module github.com/THREATINT/go/http
+module github.com/THREATINT/go-http
 
 go 1.12
