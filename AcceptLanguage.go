@@ -5,11 +5,15 @@ import (
 	"strings"
 )
 
+// AcceptedLanguage struct
+// Language and q-factor weighting
 type AcceptedLanguage struct {
 	Lang string
 	Q    float64
 }
 
+// ParseAcceptLanguage (acceptLanguage)
+// Use to parse browser 'Accept-Language' header e. g. 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5'
 func ParseAcceptLanguage(acceptLanguage string) []AcceptedLanguage {
 	var acceptedLanguages []AcceptedLanguage
 
