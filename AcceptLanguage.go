@@ -13,7 +13,8 @@ type AcceptedLanguage struct {
 }
 
 // ParseAcceptLanguage (acceptLanguage)
-// Use to parse browser 'Accept-Language' header e. g. 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5'
+// Use to parse browser 'Accept-Language' header including accepted language and q-factor weighting
+// e. g. 'fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5'
 func ParseAcceptLanguage(acceptLanguage string) []AcceptedLanguage {
 	var acceptedLanguages []AcceptedLanguage
 
