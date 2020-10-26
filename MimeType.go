@@ -6,7 +6,7 @@ import (
 )
 
 // MimeTypeByExtension (extension)
-//
+// Return matching MimeType for file extension
 func MimeTypeByExtension(extension string) string {
 	if !strings.HasPrefix(extension, ".") {
 		extension = "." + extension
