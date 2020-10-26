@@ -7,7 +7,8 @@ import (
 	"strings"
 )
 
-// GetClientIP(r *http.Request) (string, error)
+// GetClientIP (request)
+// Returns the client ip address from HTTP headers
 func GetClientIP(r *http.Request) (string, error) {
 	if r == nil {
 		return "", errors.New("*http.Request must not be nil")

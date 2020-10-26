@@ -5,6 +5,8 @@ import (
 	"strings"
 )
 
+// MimeTypeByExtension (extension)
+//
 func MimeTypeByExtension(extension string) string {
 	if !strings.HasPrefix(extension, ".") {
 		extension = "." + extension
