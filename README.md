@@ -1,9 +1,9 @@
-# github.com/THREATINT/go-http
+# go-http
 
-## Package http
+# Introduction
 
 ### ClientIP
-Returns the client ip address from HTTP headers. It is aware of `True-Client-IP` and `CF-Connecting-IP` (both from CloudFlare).
+Returns the client ip address from HTTP headers. It is aware of `True-Client-IP` and `CF-Connecting-IP`. (both from CloudFlare)
 
 ### MimeType
 Provides a mapping for know filename extension to mime type (e.g. .html -> text/html) based on the built in [`mime.TypeByExtension`](https://golang.org/pkg/mime/#TypeByExtension) and [svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types](https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types)
