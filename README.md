@@ -1,6 +1,6 @@
 # go-http
 
-# Introduction
+## Introduction
 
 ### ClientIP
 Returns the client ip address from HTTP headers. It is aware of `True-Client-IP` and `CF-Connecting-IP`. (both from CloudFlare)
