@@ -745,6 +745,7 @@ var mimeType = map[string]string {
 	"oga": "audio/ogg",
 	"ogg": "audio/ogg",
 	"spx": "audio/ogg",
+	"opus": "audio/ogg",
 	"s3m": "audio/s3m",
 	"sil": "audio/silk",
 	"uva": "audio/vnd.dece.audio",
