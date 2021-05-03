@@ -14,11 +14,10 @@ func GetClientIP(r *http.Request) (string, error) {
 		return "", errors.New("*http.Request must not be nil")
 	}
 
-	// used by CloudFlare (attn! Enterprise plan only!)
+	// used by CloudFlare (attn: Enterprise plan only!)
 	if cfTrueClientIP := r.Header.Get("True-Client-IP"); cfTrueClientIP != "" {
 		return cfTrueClientIP, nil
 	}
-
 	// used by CloudFlare
 	if cfConnectingIP := r.Header.Get("CF-Connecting-IP"); cfConnectingIP != "" {
 		return cfConnectingIP, nil
