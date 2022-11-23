@@ -17,5 +17,3 @@ Please see e.g. [MDN (Mozilla Developer Network)](https://developer.mozilla.org/
 
 ## License
 Release under the MIT License. (see LICENSE)
-
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b2961363d3b4f1eb005a6e936c9534b)](https://www.codacy.com/gh/THREATINT/go-http/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=THREATINT/go-http&amp;utm_campaign=Badge_Grade)
