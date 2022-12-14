@@ -2,6 +2,7 @@ package http
 
 import (
 	"errors"
+	"fmt"
 	"net"
 	"net/http"
 	"strings"
@@ -9,16 +10,22 @@ import (
 
 // GetClientIP (request)
 // Returns the client ip address from HTTP headers
-func GetClientIP(r *http.Request) (string, error) {
+func ClientIP(r *http.Request) (string, error) {
+	var (
+		err      error
+		ip       string
+		clientIP net.IP
+	)
+
 	if r == nil {
 		return "", errors.New("*http.Request must not be nil")
 	}
 
-	// used by CloudFlare (attn: Enterprise plan only!)
+	// True-Client-IP, used by CloudFlare (attn: Enterprise plan only!)
 	if cfTrueClientIP := r.Header.Get("True-Client-IP"); cfTrueClientIP != "" {
 		return cfTrueClientIP, nil
 	}
-	// used by CloudFlare
+	// CF-Connecting-IP, used by CloudFlare
 	if cfConnectingIP := r.Header.Get("CF-Connecting-IP"); cfConnectingIP != "" {
 		return cfConnectingIP, nil
 	}
@@ -35,14 +42,12 @@ func GetClientIP(r *http.Request) (string, error) {
 		return xForwardedFor, nil
 	}
 
-	ip, _, err := net.SplitHostPort(r.RemoteAddr)
-	if err != nil {
-		return "", errors.New("cannot parse remote address ( ip + port)")
+	if ip, _, err = net.SplitHostPort(r.RemoteAddr); err != nil {
+		return "", fmt.Errorf("cannot parse remote address %s into ip + port", r.RemoteAddr)
 	}
 
-	clientIP := net.ParseIP(ip)
-	if clientIP == nil {
-		return "", errors.New("cannot parse remote ip")
+	if clientIP = net.ParseIP(ip); clientIP == nil {
+		return "", fmt.Errorf("cannot parse remote ip %s", ip)
 	}
 
 	return ip, nil
