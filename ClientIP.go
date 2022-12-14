@@ -9,7 +9,7 @@ import (
 
 // GetClientIP (request)
 // Returns the client ip address from HTTP headers
-func GetClientIP(r *http.Request) (string, error) {
+func ClientIP(r *http.Request) (string, error) {
 	var (
 		err           error
 		xForwardedFor string
