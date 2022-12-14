@@ -8,12 +8,12 @@ import (
 // MimeTypeByExtension (extension)
 // Return matching MimeType for file extension
 func MimeTypeByExtension(extension string) string {
+	var m string
+
 	if !strings.HasPrefix(extension, ".") {
 		extension = "." + extension
 	}
-	m := mime.TypeByExtension(extension)
-
-	if m != "" {
+	if m = mime.TypeByExtension(extension); m != "" {
 		return m
 	}
 
