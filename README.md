@@ -30,3 +30,6 @@ Kindly raise an issue in Github if you find a problem in the code.
 
 ## License
 Release under the MIT License. (see LICENSE)
+
+[![DeepSource](https://deepsource.io/gh/THREATINT/go-http.svg/?label=active+issues&show_trend=true&token=C69rSbRnPqSEcm3RsQDsPCZ7)](https://deepsource.io/gh/THREATINT/go-http/?ref=repository-badge)
+
