@@ -28,5 +28,4 @@ We would love to hear from you! Please contact us at [help@threatint.com](mailto
 Release under the MIT License. (see LICENSE)
 
 ## QA
-[![DeepSource](https://deepsource.io/gh/THREATINT/go-http.svg/?label=active+issues&show_trend=true&token=C69rSbRnPqSEcm3RsQDsPCZ7)](https://deepsource.io/gh/THREATINT/go-http/?ref=repository-badge)
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b2961363d3b4f1eb005a6e936c9534b)](https://app.codacy.com/gh/THREATINT/go-http/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
