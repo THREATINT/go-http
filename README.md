@@ -4,7 +4,7 @@
 This is a library implemented in Go (Golang) that provides some functionality to deal with HTTP requests and headers.
 
 ## Usage
-Install in your ${GOPATH} using `go get -u github.com/THREATINT/go-http`.
+Install in your ${GOPATH} using `go get github.com/THREATINT/go-http`.
 
 ### AcceptLanguage
 Use `ParseAcceptLanguage()` to parse browser `Accept-Language` headers like
