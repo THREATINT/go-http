@@ -797,6 +797,7 @@ var mimeType = map[string]string {
 	"jpeg": "image/jpeg",
 	"jpg": "image/jpeg",
 	"jpe": "image/jpeg",
+	"jxl": "image/jxl",
 	"ktx": "image/ktx",
 	"png": "image/png",
 	"btif": "image/prs.btif",
