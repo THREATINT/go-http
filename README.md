@@ -2,10 +2,10 @@
 
 ## Introduction
 This is a library implemented in Go (Golang) that provides some functionality to deal with 
-HTTP requests and headers.
+HTTP requests and certain headers.
 
 ## Usage
-Install in your ${GOPATH} using `go get github.com/THREATINT/go-http`.
+Install using `go get github.com/THREATINT/go-http`.
 
 ### AcceptLanguage
 Use `ParseAcceptLanguage()` to parse browser `Accept-Language` headers like
@@ -18,6 +18,10 @@ Please see e.g. [MDN (Mozilla Developer Network)](https://developer.mozilla.org/
 `ClientIP()` returns the client ip address from HTTP headers. It works with `X-Forwarded-For` 
 (used by most reverse proxies) and is aware of `True-Client-IP` and `CF-Connecting-IP` 
 (both implemented by CloudFlare) and others.
+
+### ETagMiddleware
+`ETagMiddleware()` adds strong ETag headers to HTTP responses as defined in 
+[RFC #9110](https://www.rfc-editor.org/rfc/rfc9110#name-etag).
 
 ### MimeType
 `MimeTypeByExtension()` provides a mapping for know file extension to mime type 
