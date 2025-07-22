@@ -7,27 +7,27 @@ import (
 
 func FilterAllowedParams(urlParameters url.Values, allowedParams []string) (url.Values, bool) {
 	isDirty := false
-	v2 := url.Values{}
+	newUrlParameters := url.Values{}
 
-	for key, value := range v2 {
+	for key, value := range urlParameters {
 		for _, k := range allowedParams {
 			if key == k {
-				v2.Add(k, value[0])
+				newUrlParameters.Add(k, value[0])
 				if len(value) > 1 {
 					isDirty = true
 				}
 				continue
 			}
 			if strings.ToLower(key) == strings.ToLower(k) {
-				v2.Add(k, value[0])
+				newUrlParameters.Add(k, value[0])
 				isDirty = true
 				continue
 			}
 		}
 	}
 
-	if isDirty || len(urlParameters) != len(v2) {
-		return v2, true
+	if isDirty || len(urlParameters) != len(newUrlParameters) {
+		return newUrlParameters, true
 	}
 	return urlParameters, false
 }
