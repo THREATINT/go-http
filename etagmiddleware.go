@@ -9,16 +9,11 @@ import (
 	"net/http"
 )
 
-func EtagMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		// Only apply to HTTP GET and HEAD, see RFC #9110
-		if req.Method != http.MethodGet && req.Method != http.MethodHead {
-			next.ServeHTTP(rw, req)
-			return
-		}
-
+// ETagMiddleware to create an ETag according to https://www.rfc-editor.org/rfc/rfc9110#name-etag
+func ETagMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(respW http.ResponseWriter, req *http.Request) {
 		etagWriter := &EtagResponseWriter{
-			ResponseWriter: rw,
+			ResponseWriter: respW,
 			hash:           sha3.New224(),
 			buf:            bytes.Buffer{},
 		}
@@ -26,27 +21,25 @@ func EtagMiddleware(next http.Handler) http.Handler {
 
 		next.ServeHTTP(etagWriter, req)
 
-		finalStatus := etagWriter.status
-		if finalStatus == 0 {
-			finalStatus = http.StatusOK
+		computedETag := fmt.Sprintf("\"%x\"", etagWriter.hash.Sum(nil))
+
+		for k, v := range etagWriter.ResponseWriter.Header() {
+			respW.Header()[k] = v
+		}
+		respW.Header().Set("ETag", computedETag)
+
+		if clientETag := req.Header.Get("If-None-Match"); clientETag == computedETag {
+			respW.WriteHeader(http.StatusNotModified)
+			return
 		}
 
-		// Use ETag only for successful responses, see RFC #9110
-		if finalStatus == http.StatusOK {
-			computedETag := fmt.Sprintf("\"%x\"", etagWriter.hash.Sum(nil))
-
-			if clientETag := req.Header.Get("If-None-Match"); clientETag == computedETag {
-				rw.Header().Set("ETag", computedETag)
-				rw.WriteHeader(http.StatusNotModified)
-				return
-			}
-
-			rw.Header().Set("ETag", computedETag)
+		if etagWriter.status == 0 {
+			respW.WriteHeader(http.StatusOK)
+		} else {
+			respW.WriteHeader(etagWriter.status)
 		}
 
-		rw.WriteHeader(finalStatus)
-
-		if _, err := etagWriter.buf.WriteTo(rw); err != nil {
+		if _, err := etagWriter.buf.WriteTo(respW); err != nil {
 			panic(err)
 		}
 	})
