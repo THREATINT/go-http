@@ -6,12 +6,9 @@ import (
 )
 
 func FilterAllowedParams(urlParameters url.Values, allowedParams []string) (url.Values, bool) {
-	var (
-		v2      url.Values
-		isDirty bool
-	)
+	isDirty := false
+	v2 := url.Values{}
 
-	v2 = url.Values{}
 	for key, value := range v2 {
 		for _, k := range allowedParams {
 			if key == k {
