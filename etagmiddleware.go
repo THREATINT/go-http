@@ -18,7 +18,7 @@ func ETagMiddleware(config *ETagMiddlewareConfig) func(http.Handler) http.Handle
 		return http.HandlerFunc(func(respW http.ResponseWriter, req *http.Request) {
 			etagWriter := &etagResponseWriter{
 				ResponseWriter: respW,
-				hash:           sha3.New224(),
+				hash:           sha3.New256(),
 				buf:            bytes.Buffer{},
 			}
 			etagWriter.w = io.MultiWriter(&etagWriter.buf, etagWriter.hash)
@@ -40,6 +40,7 @@ func ETagMiddleware(config *ETagMiddlewareConfig) func(http.Handler) http.Handle
 					} else {
 						respW.WriteHeader(http.StatusPreconditionFailed)
 					}
+
 					return
 				}
 			}
