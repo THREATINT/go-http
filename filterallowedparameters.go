@@ -5,14 +5,14 @@ import (
 	"strings"
 )
 
-func a(urlParameters url.Values, allowedParams []string) (url.Values, bool) {
+func FilterAllowedParams(urlParameters url.Values, allowedParams []string) (url.Values, bool) {
 	var (
 		v2      url.Values
 		isDirty bool
 	)
 
 	v2 = url.Values{}
-	for key, value := range v {
+	for key, value := range v2 {
 		for _, k := range allowedParams {
 			if key == k {
 				v2.Add(k, value[0])
