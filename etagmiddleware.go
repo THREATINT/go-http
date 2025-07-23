@@ -8,14 +8,31 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"regexp"
 	"strings"
 )
 
 // ETagMiddleware middleware to add strong ETags  ,
 // see https://www.rfc-editor.org/rfc/rfc9110#name-etag for details
 func ETagMiddleware(config *ETagMiddlewareConfig) func(http.Handler) http.Handler {
+	if config != nil {
+		for _, u := range config.IgnoreURLs {
+			config.ignoreURLsRegEx = append(config.ignoreURLsRegEx, regexp.MustCompile(u))
+		}
+	}
+
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(respW http.ResponseWriter, req *http.Request) {
+			if config.ignoreURLsRegEx != nil {
+				url := req.URL.String()
+				for _, rx := range config.ignoreURLsRegEx {
+					if rx.Match([]byte(url)) {
+						next.ServeHTTP(respW, req)
+						return
+					}
+				}
+			}
+
 			etagWriter := &etagResponseWriter{
 				ResponseWriter: respW,
 				hash:           sha3.New256(),
@@ -96,8 +113,10 @@ func containsETag(ifNoneMatch, computedETag string) bool {
 }
 
 type ETagMiddlewareConfig struct {
-	Panic  bool
-	Logger *log.Logger
+	Panic           bool
+	Logger          *log.Logger
+	IgnoreURLs      []string
+	ignoreURLsRegEx []*regexp.Regexp
 }
 
 type etagResponseWriter struct {
