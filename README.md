@@ -7,12 +7,11 @@ HTTP requests and certain headers.
 ## Usage
 Install using `go get github.com/THREATINT/go-http`.
 
-### AcceptLanguage
-Use `ParseAcceptLanguage()` to parse browser `Accept-Language` headers like
+### Quality Values
+Use `ParseQualityValues()` to parse client headers like `Accept-Language`. 
+(e.g. `fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5`)
 
-`fr-CH, fr;q=0.9, en;q=0.8, de;q=0.7, *;q=0.5`
-
-Please see e.g. [MDN (Mozilla Developer Network)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) for general information on Accept-Language.
+Please see [RFC #9110, 12.4.2 Quality Values](https://www.rfc-editor.org/rfc/rfc9110.html#name-quality-values) for details.
 
 ### ClientIP
 `ClientIP()` returns the client ip address from HTTP headers. It works with `X-Forwarded-For` 
@@ -21,7 +20,7 @@ Please see e.g. [MDN (Mozilla Developer Network)](https://developer.mozilla.org/
 
 ### ETagMiddleware
 `ETagMiddleware()` adds strong ETag headers to HTTP responses as defined in 
-[RFC #9110](https://www.rfc-editor.org/rfc/rfc9110#name-etag).
+[RFC #9110, 8.3.3 ETag](https://www.rfc-editor.org/rfc/rfc9110#name-etag).
 
 ### MimeType
 `MimeTypeByExtension()` provides a mapping for know file extension to mime type 
